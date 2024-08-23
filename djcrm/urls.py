@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', LandingPageView.as_view(), name="landing-page"),
     path('leads/' , include('leads.urls' , namespace='leads')),
+    path('agents/' , include('agents.urls' , namespace='agents')),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/',logoutview, name='logout'),
     path('signup/', SignUpView.as_view(), name='signup'),    
