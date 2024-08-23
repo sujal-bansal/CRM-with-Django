@@ -27,7 +27,7 @@ urlpatterns = [
     path('leads/' , include('leads.urls' , namespace='leads')),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/',logoutview, name='logout'),
-    path('singup/', SignUpView.as_view(), name='signup'),    
+    path('signup/', SignUpView.as_view(), name='signup'),    
 ]
 if settings.DEBUG==True:
     urlpatterns += static(settings.STATIC_URL, document_root= settings.STATIC_ROOT)
