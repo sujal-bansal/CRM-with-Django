@@ -1,10 +1,14 @@
+from typing import Any
 from django.core.mail import send_mail
+from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, TemplateView, CreateView, DetailView, UpdateView, DeleteView
+from agents.mixins import OrganisorAndLoginRequiredMixin
 from .forms import LeadForm, LeadModelForm, CustomUserCreationForm
 from .models import Lead, Agent
+
 
 def logoutview(request):
     logout(request)
@@ -27,8 +31,14 @@ class LandingPageView(LoginRequiredMixin, TemplateView):
 
 class LeadListView(LoginRequiredMixin, ListView):
     template_name = 'leads/lead_list.html'
-    queryset = Lead.objects.all()
     context_object_name = 'leads'
+
+    
+    def get_queryset(self):
+        queryset = Lead.objects.all()
+        if self.request.user.is_agent:
+            queryset = queryset.filter(agent__user = self.request.user)
+        return queryset
 
 
 class LeadDetailView(LoginRequiredMixin, DetailView):
@@ -37,7 +47,7 @@ class LeadDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'leads'
 
 
-class LeadCreateView(LoginRequiredMixin, CreateView):
+class LeadCreateView(OrganisorAndLoginRequiredMixin, CreateView):
     template_name = 'leads/lead_create.html'
     form_class = LeadModelForm
     
@@ -55,7 +65,7 @@ class LeadCreateView(LoginRequiredMixin, CreateView):
         return super(LeadCreateView, self).form_valid(form)
     
 
-class LeadUpdateView(LoginRequiredMixin, UpdateView):
+class LeadUpdateView(OrganisorAndLoginRequiredMixin, UpdateView):
     template_name = 'leads/lead_update.html'
     form_class = LeadModelForm
     queryset = Lead.objects.all()
@@ -65,7 +75,7 @@ class LeadUpdateView(LoginRequiredMixin, UpdateView):
         return reverse("leads:lead-list")
 
 
-class LeadDeleteView(LoginRequiredMixin, DeleteView):
+class LeadDeleteView(OrganisorAndLoginRequiredMixin, DeleteView):
     queryset = Lead.objects.all()
     template_name = 'leads/lead_delete.html'
 
