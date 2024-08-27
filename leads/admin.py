@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import User, Agent, Lead, UserProfile
+from .models import User, Agent, Lead, UserProfile, Category
 
 @admin.register(User)
 
@@ -22,3 +22,5 @@ class UserAdmin(admin.ModelAdmin):
 admin.site.register(Lead)
 
 admin.site.register(UserProfile)
+
+admin.site.register(Category)
