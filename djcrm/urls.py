@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordResetView
 from django.urls import path, include
 from leads.views import LandingPageView, SignUpView, logoutview
 
@@ -27,6 +27,7 @@ urlpatterns = [
     path('leads/' , include('leads.urls' , namespace='leads')),
     path('agents/' , include('agents.urls' , namespace='agents')),
     path('login/', LoginView.as_view(), name='login'),
+    path("reset-password/", PasswordResetView.as_view(), name="reset-password"),
     path('logout/',logoutview, name='logout'),
     path('signup/', SignUpView.as_view(), name='signup'),    
 ]
