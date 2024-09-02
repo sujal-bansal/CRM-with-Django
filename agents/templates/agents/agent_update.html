@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% load tailwind_filters %}{% block content %}
 <section class="text-gray-600 body-font overflow-hidden">
   <div class="container px-5 py-24 mx-auto">
     <div class="lg:w-4/5 mx-auto flex flex-wrap">
@@ -24,15 +24,21 @@
           >
         </div>
         <form method="POST">
-          {% csrf_token %} {{form.as_p}} <input type="submit" />
+          {% csrf_token %} {{form|crispy}}
+          <button
+            class="w-full text-white bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-md"
+          >
+            Submit
+          </button>
         </form>
-
-        <a
-          href="{% url 'agents:agent-delete' agents.id %}"
-          class="mt-3 flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
-        >
-          Delete
-        </a>
+        <div class="mt-5 py-5 border-t border-gray-200">
+          <a
+            href="{% url 'agents:agent-delete' agents.id %}"
+            class="w-1/2 mt-3 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+          >
+            Delete
+          </a>
+        </div>
       </div>
       <img
         alt="ecommerce"

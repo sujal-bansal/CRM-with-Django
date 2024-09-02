@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load tailwind_filters %}{% block content %}
+{% extends 'base.html' %}{% load tailwind_filters %} {% block content %}
 <section class="text-gray-600 body-font overflow-hidden">
   <div class="container px-5 py-24 mx-auto">
     <div class="lg:w-4/5 mx-auto flex flex-wrap">
@@ -16,12 +16,12 @@
 
           <a
             href="{% url 'leads:category-update' leads.id%}"
-            class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1"
+            class="flex-grow text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1"
             >Category</a
           >
           <a
             href='{% url "leads:lead-update" leads.id %}'
-            class="flex-grow text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1"
+            class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1"
             >Update</a
           >
         </div>
@@ -33,15 +33,6 @@
             Submit
           </button>
         </form>
-
-        <div class="mt-5 py-5 border-t border-gray-200">
-          <a
-            href="{% url 'leads:lead-delete' leads.id %}"
-            class="w-1/2 mt-3 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
-          >
-            Delete
-          </a>
-        </div>
       </div>
       <img
         alt="ecommerce"

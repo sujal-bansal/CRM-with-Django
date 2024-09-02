@@ -5,10 +5,10 @@
       <h1
         class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900"
       >
-        Categories
+        Categories Detail
       </h1>
       <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
-        These Categories segment the Leads
+        The leads in this {{ category.name }} category.
       </p>
     </div>
     <div class="lg:w-2/3 w-full mx-auto overflow-auto">
@@ -23,7 +23,7 @@
             <th
               class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100"
             >
-              Lead Count
+              Age
             </th>
 
             <th
@@ -32,24 +32,16 @@
           </tr>
         </thead>
         <tbody>
-          {% comment %}
-          <tr>
-            <td class="px-4 py-3">Unassigned Agents Leads</td>
-            <td class="px-4 py-3">{{ unassigned_lead_count_agent }}</td>
-          </tr>
-          {% endcomment %}
-          <tr>
-            <td class="px-4 py-3">Unassigned Leads</td>
-            <td class="px-4 py-3">{{ unassigned_lead_count }}</td>
-          </tr>
-          {% for category in category_list %}
+          {% for lead in category.leads.all %}
           <tr>
             <td class="px-4 py-3">
-              <a href='{% url "leads:category-detail" category.id %}'
-                >{{category.name}}</a
+              <a
+                class="hover:text-blue-500"
+                href='{% url "leads:lead-detail" lead.pk %}'
+                >{{lead.first_name}} {{lead.last_name}}</a
               >
             </td>
-            <td class="px-4 py-3">Todo Count</td>
+            <td class="px-4 py-3">{{lead.age}}</td>
           </tr>
           {% endfor %}
         </tbody>
